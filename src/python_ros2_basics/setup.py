@@ -20,7 +20,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'example_node_py = python_ros2_basics.example_node_py:main'
+            'example_node_py = python_ros2_basics.example_node_py:main',
+            'example_publisher_py = python_ros2_basics.publisher_example:main',
+            'example_subscriber_py = python_ros2_basics.subscriber_example:main',
+            'example_publisher_subscriber = python_ros2_basics.publisher_subscriber_example:main'
         ],
     },
 )
