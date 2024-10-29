@@ -22,7 +22,7 @@ class ZeroDiffDriveExample(Node):
         self.timer = self.create_timer(0.2, self.control_loop)  # Every 0.2 second
         self.front_distance = None
         self.front_distance_threshold = 0.5 #meters
-        self.get_logger().info('TurtleBot Controller Node has been started.')
+        self.get_logger().info('Zero Diff Drive Controller Node has been started.')
 
     def scan_callback(self, scan_msg):
         """Callback function that processes laser scan data."""
@@ -38,7 +38,7 @@ class ZeroDiffDriveExample(Node):
         msg = Twist()
         # Check if the first message has been received before moving the robot
         if self.front_distance is not None:
-            # If the front distance is less than 0.5 meters, turn left
+            # If the front distance is less than 0.5 meters, stop
             if self.front_distance < self.front_distance_threshold:
                 self.get_logger().info('Obstacle detected! Stop the robot.')
                 msg.linear.x = 0.0
