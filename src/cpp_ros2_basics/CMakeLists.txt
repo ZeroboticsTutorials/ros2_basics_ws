@@ -8,18 +8,27 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 add_executable(example_node_cpp src/example_node_cpp.cpp)
-target_include_directories(example_node_cpp PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
-target_compile_features(example_node_cpp PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(
-  example_node_cpp
-  "rclcpp"
-)
+ament_target_dependencies(example_node_cpp rclcpp)
 
-install(TARGETS example_node_cpp
+add_executable(example_publisher_cpp src/publisher_example.cpp)
+ament_target_dependencies(example_publisher_cpp rclcpp std_msgs)
+
+add_executable(example_subscriber_cpp src/subscriber_example.cpp)
+ament_target_dependencies(example_subscriber_cpp rclcpp std_msgs)
+
+add_executable(example_publisher_subscriber_cpp src/publisher_subscriber_example.cpp)
+ament_target_dependencies(example_publisher_subscriber_cpp rclcpp std_msgs sensor_msgs geometry_msgs)
+
+install(TARGETS 
+  example_node_cpp
+  example_publisher_cpp
+  example_subscriber_cpp
+  example_publisher_subscriber_cpp
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
